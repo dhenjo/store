@@ -1,0 +1,694 @@
+<!DOCTYPE html>
+<!--[if IE 8]>          <html class="ie ie8"> <![endif]-->
+<!--[if IE 9]>          <html class="ie ie9"> <![endif]-->
+<!--[if gt IE 9]><!-->  <html> <!--<![endif]-->
+<head>
+    <!-- Page Title -->
+    <title>Travelo | Responsive HTML5 Travel Template</title>
+    
+    <!-- Meta Tags -->
+    <meta charset="utf-8">
+    <meta name="keywords" content="HTML5 Template" />
+    <meta name="description" content="Travelo | Responsive HTML5 Travel Template">
+    <meta name="author" content="SoapTheme">
+
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    
+    <!-- Theme Styles -->
+    <link rel="stylesheet" href="css/bootstrap.min.css">
+    <link rel="stylesheet" href="css/font-awesome.min.css">
+    <link href='http://fonts.googleapis.com/css?family=Lato:300,400,700' rel='stylesheet' type='text/css'>
+    <link rel="stylesheet" href="css/animate.min.css">
+    
+    <!-- Current Page Styles -->
+    <link rel="stylesheet" type="text/css" href="components/revolution_slider/css/settings.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="components/revolution_slider/css/style.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="components/jquery.bxslider/jquery.bxslider.css" media="screen" />
+    <link rel="stylesheet" type="text/css" href="components/flexslider/flexslider.css" media="screen" />
+    
+    <!-- Main Style -->
+    <link id="main-style" rel="stylesheet" href="css/style.css">
+    
+    <!-- Custom Styles -->
+    <link rel="stylesheet" href="css/custom.css">
+
+    <!-- Updated Styles -->
+    <link rel="stylesheet" href="css/updates.css">
+    
+    <!-- Responsive Styles -->
+    <link rel="stylesheet" href="css/responsive.css">
+    
+    <!-- CSS for IE -->
+    <!--[if lte IE 9]>
+        <link rel="stylesheet" type="text/css" href="css/ie.css" />
+    <![endif]-->
+    
+
+    <!-- HTML5 shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!--[if lt IE 9]>
+      <script type='text/javascript' src="http://html5shiv.googlecode.com/svn/trunk/html5.js"></script>
+      <script type='text/javascript' src="http://cdnjs.cloudflare.com/ajax/libs/respond.js/1.4.2/respond.js"></script>
+    <![endif]-->
+    <style>
+        section#content { min-height: 766px; padding-top: 150px; }
+        .page-title { font-size: 4.1667em; color: #333; text-align: center; }
+        .page-description { font-size: 2.5em; color: #fff; text-align: center; font-weight: bold; margin-bottom: 100px; }
+    </style>
+</head>
+<body>
+    <div id="page-wrapper">
+        <section id="content">
+            <h1 class="page-title">Best Holiday Suggestions for <em>you!</em></h1>
+            <h2 class="page-description">Enjoy new holiday packages now</h2>
+            <div class="search-box-wrapper style2">
+                <div class="search-box container">
+                    <ul class="search-tabs clearfix">
+                        <li class="active"><a href="#hotels-tab" data-toggle="tab"><i class="soap-icon-hotel"></i><span>HOTELS</span></a></li>
+                        <li><a href="#flights-tab" data-toggle="tab"><i class="soap-icon-plane-right takeoff-effect"></i><span>FLIGHTS</span></a></li>
+                        <li><a href="#flight-and-hotel-tab" data-toggle="tab"><i class="soap-icon-flight-hotel"></i><span>FLIGHT &amp; HOTELS</span></a></li>
+                        <li><a href="#cars-tab" data-toggle="tab"><i class="soap-icon-car"></i><span>CARS</span></a></li>
+                        <li><a href="#cruises-tab" data-toggle="tab"><i class="soap-icon-cruise"></i><span>CRUISES</span></a></li>
+                        <li><a href="#flight-status-tab" data-toggle="tab"><i class="soap-icon-status"></i><span>FLIGHT STATUS</span></a></li>
+                        <li><a href="#online-checkin-tab" data-toggle="tab"><i class="soap-icon-stories"></i><span>ONLINE CHECK IN</span></a></li>
+                        <li class="advanced-search visible-lg"><a href="#advanced-search-tab" data-toggle="tab"><span>Advanced Search</span></a></li>
+                    </ul>
+                    <div class="visible-mobile">
+                        <ul id="mobile-search-tabs" class="search-tabs clearfix">
+                            <li class="active"><a href="#hotels-tab">HOTELS</a></li>
+                            <li><a href="#flights-tab">FLIGHTS</a></li>
+                            <li><a href="#flight-and-hotel-tab">FLIGHT &amp; HOTELS</a></li>
+                            <li><a href="#cars-tab">CARS</a></li>
+                            <li><a href="#cruises-tab">CRUISES</a></li>
+                            <li><a href="#flight-status-tab">FLIGHT STATUS</a></li>
+                            <li><a href="#online-checkin-tab">ONLINE CHECK IN</a></li>
+                            <li><a href="#advanced-search-tab">Advanced Search</a></li>
+                        </ul>
+                    </div>
+                    
+                    <div class="search-tab-content">
+                        <div class="tab-pane fade active in" id="hotels-tab">
+                            <form action="hotel-list-view.html" method="post">
+                                <h4 class="title">Where do you want to go?</h4>
+                                <div class="row">
+                                    <div class="form-group col-sm-6 col-md-3">
+                                        <input type="text" class="input-text full-width" placeholder="Rome, Paris, New York..." />
+                                    </div>
+                                    <div class="form-group col-sm-6 col-md-4">
+                                        <div class="row">
+                                            <div class="col-xs-6">
+                                                <div class="datepicker-wrap">
+                                                    <input type="text" class="input-text full-width" placeholder="Check In" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="datepicker-wrap">
+                                                    <input type="text" class="input-text full-width" placeholder="Check Out" />
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-5">
+                                        <div class="row">
+                                            <div class="col-xs-4">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="1">1 Room</option>
+                                                        <option value="2">2 Rooms</option>
+                                                        <option value="3">3 Rooms</option>
+                                                        <option value="4">4 Rooms</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="1">1 Guest</option>
+                                                        <option value="2">2 Guests</option>
+                                                        <option value="3">3 Guests</option>
+                                                        <option value="4">4 Guests</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-4">
+                                                <button type="submit" class="full-width">SEARCH NOW</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="flights-tab">
+                            <form action="flight-list-view.html" method="post">
+                                <h4 class="title">Where do you want to go?</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="Leaving From (city, distirct or specific airpot)" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="Going To (city, distirct or specific airpot)" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <div class="datepicker-wrap">
+                                                    <input type="text" class="input-text full-width" placeholder="Departing On" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="1">anytime</option>
+                                                        <option value="2">morning</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <div class="datepicker-wrap">
+                                                    <input type="text" class="input-text full-width" placeholder="Arriving On" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="1">anytime</option>
+                                                        <option value="2">morning</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Adults</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Kids</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input type="text" class="input-text full-width" placeholder="Promo Code" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Infants</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 pull-right">
+                                                <button class="full-width">SERACH NOW</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="flight-and-hotel-tab">
+                            <form action="flight-list-view.html" method="post">
+                                <h4 class="title">Where do you want to go?</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="Leaving From (city, distirct or specific airpot)" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="Going To (city, distirct or specific airpot)" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <div class="datepicker-wrap">
+                                                    <input type="text" class="input-text full-width" placeholder="Departing On" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="1">anytime</option>
+                                                        <option value="2">morning</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <div class="datepicker-wrap">
+                                                    <input type="text" class="input-text full-width" placeholder="Arriving On" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="1">anytime</option>
+                                                        <option value="2">morning</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Adults</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Kids</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input type="text" class="input-text full-width" placeholder="Promo Code" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Infants</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 pull-right">
+                                                <button class="full-width">SERACH NOW</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="cars-tab">
+                            <form action="car-list-view.html" method="post">
+                                <h4 class="title">Where do you want to go?</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="Pick Up (city, distirct or specific airpot)" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="Drop Off (city, distirct or specific airpot)" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <div class="datepicker-wrap">
+                                                        <input type="text" class="input-text full-width" placeholder="Pick-Up Date / Time" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="1">anytime</option>
+                                                            <option value="2">morning</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group">
+                                            <div class="row">
+                                                <div class="col-xs-6">
+                                                    <div class="datepicker-wrap">
+                                                        <input type="text" class="input-text full-width" placeholder="Drop-Off Date / Time" />
+                                                    </div>
+                                                </div>
+                                                <div class="col-xs-6">
+                                                    <div class="selector">
+                                                        <select class="full-width">
+                                                            <option value="1">anytime</option>
+                                                            <option value="2">morning</option>
+                                                        </select>
+                                                    </div>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Adults</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Kids</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input type="text" class="input-text full-width" placeholder="Promo Code" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">select a car type</option>
+                                                        <option value="economy">Economy</option>
+                                                        <option value="compact">Compact</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <button class="full-width">SERACH NOW</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="cruises-tab">
+                            <form action="cruise-list-view.html" method="post">
+                                <h4 class="title">Where do you want to go?</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="enter a destination or hotel name" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <div class="datepicker-wrap">
+                                                    <input type="text" class="input-text full-width" placeholder="Departure Date" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">select cruise length</option>
+                                                        <option value="1">1-2 Nights</option>
+                                                        <option value="2">3-4 Nights</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">select cruise line</option>
+                                                        <option>Azamara Club Cruises</option>
+                                                        <option>Carnival Cruise Lines</option>
+                                                        <option>Celebrity Cruises</option>
+                                                        <option>Costa Cruise Lines</option>
+                                                        <option>Cruise &amp; Maritime Voyages</option>
+                                                        <option>Crystal Cruises</option>
+                                                        <option>Cunard Line Ltd.</option>
+                                                        <option>Disney Cruise Line</option>
+                                                        <option>Holland America Line</option>
+                                                        <option>Hurtigruten Cruise Line</option>
+                                                        <option>MSC Cruises</option>
+                                                        <option>Norwegian Cruise Line</option>
+                                                        <option>Oceania Cruises</option>
+                                                        <option>Orion Expedition Cruises</option>
+                                                        <option>P&amp;O Cruises</option>
+                                                        <option>Paul Gauguin Cruises</option>
+                                                        <option>Peter Deilmann Cruises</option>
+                                                        <option>Princess Cruises</option>
+                                                        <option>Regent Seven Seas Cruises</option>
+                                                        <option>Royal Caribbean International</option>
+                                                        <option>Seabourn Cruise Line</option>
+                                                        <option>Silversea Cruises</option>
+                                                        <option>Star Clippers</option>
+                                                        <option>Swan Hellenic Cruises</option>
+                                                        <option>Thomson Cruises</option>
+                                                        <option>Viking River Cruises</option>
+                                                        <option>Windstar Cruises</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <button class="full-width">SEARCH NOW</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="flight-status-tab">
+                            <form action="flight-list-view.html" method="post">
+                                <h4 class="title">Where do you want to go?</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <input type="text" class="input-text full-width" placeholder="Leaving From (enter a city or place name)" />
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input type="text" class="input-text full-width" placeholder="Going To (enter a city or place name)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-xs-6 col-md-2">
+                                        <div class="form-group">
+                                            <div class="datepicker-wrap">
+                                                <input type="text" class="input-text full-width" placeholder="Departure Date" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-xs-6 col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="Flight Number" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <button class="full-width">SEARCH NOW</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="online-checkin-tab">
+                            <form>
+                                <h4 class="title">Where do you want to go?</h4>
+                                <div class="row">
+                                    <div class="col-md-6">
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <input type="text" class="input-text full-width" placeholder="Leaving From (enter a city or place name)" />
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input type="text" class="input-text full-width" placeholder="Going To (enter a city or place name)" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-xs-6 col-md-2">
+                                        <div class="form-group">
+                                            <div class="datepicker-wrap">
+                                                <input type="text" class="input-text full-width" placeholder="Departure Date" />
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-xs-6 col-md-2">
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="enter your full name" />
+                                        </div>
+                                    </div>
+                                    <div class="form-group col-md-2">
+                                        <button class="full-width">SEARCH NOW</button>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                        <div class="tab-pane fade" id="advanced-search-tab">
+                            <form>
+                                <h4 class="title">Where do you want to go?</h4>
+                                <div class="row">
+                                    <div class="col-md-4">
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="Leaving From (city, distirct or specific airpot)" />
+                                        </div>
+                                        <div class="form-group">
+                                            <input type="text" class="input-text full-width" placeholder="Going To (city, distirct or specific airpot)" />
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <div class="datepicker-wrap">
+                                                    <input type="text" class="input-text full-width" placeholder="Departing On" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="1">anytime</option>
+                                                        <option value="2">morning</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-6">
+                                                <div class="datepicker-wrap">
+                                                    <input type="text" class="input-text full-width" placeholder="Arriving On" />
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="1">anytime</option>
+                                                        <option value="2">morning</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    
+                                    <div class="col-md-4">
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Adults</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Kids</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6">
+                                                <input type="text" class="input-text full-width" placeholder="Promo Code" />
+                                            </div>
+                                        </div>
+                                        <div class="form-group row">
+                                            <div class="col-xs-3">
+                                                <div class="selector">
+                                                    <select class="full-width">
+                                                        <option value="">Infants</option>
+                                                        <option value="1">01</option>
+                                                        <option value="2">02</option>
+                                                        <option value="3">03</option>
+                                                        <option value="4">04</option>
+                                                    </select>
+                                                </div>
+                                            </div>
+                                            <div class="col-xs-6 pull-right">
+                                                <button class="full-width">SERACH NOW</button>
+                                            </div>
+                                        </div>
+                                    </div>
+                                </div>
+                            </form>
+                        </div>
+                    </div>
+                </div>
+            </div>
+        </section>
+    </div>
+
+    <!-- Javascript -->
+    <script type="text/javascript" src="js/jquery-1.11.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.noconflict.js"></script>
+    <script type="text/javascript" src="js/modernizr.2.7.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery-migrate-1.2.1.min.js"></script>
+    <script type="text/javascript" src="js/jquery.placeholder.js"></script>
+    <script type="text/javascript" src="js/jquery-ui.1.10.4.min.js"></script>
+    
+    <!-- Twitter Bootstrap -->
+    <script type="text/javascript" src="js/bootstrap.js"></script>
+    
+    <!-- load BXSlider scripts -->
+    <script type="text/javascript" src="components/jquery.bxslider/jquery.bxslider.min.js"></script>
+    
+    <!-- parallax -->
+    <script type="text/javascript" src="js/jquery.stellar.min.js"></script>
+    
+    <!-- waypoint -->
+    <script type="text/javascript" src="js/waypoints.min.js"></script>
+
+    <!-- load page Javascript -->
+    <script type="text/javascript" src="js/theme-scripts.js"></script>
+    <script type="text/javascript" src="js/scripts.js"></script>
+    
+    <script type="text/javascript">
+        
+    </script>
+</body>
+</html>
+

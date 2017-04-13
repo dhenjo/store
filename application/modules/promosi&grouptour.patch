@@ -1,0 +1,684 @@
+Index: antavaya/controllers/antavaya.php
+===================================================================
+--- antavaya/controllers/antavaya.php	(revision 65)
++++ antavaya/controllers/antavaya.php	(working copy)
+@@ -783,6 +783,8 @@
+     $slide = $this->global_models->get_query("SELECT * FROM website_slideshow WHERE status = 1 ORDER BY sort ASC");
+     $promosi = $this->global_models->get_query("SELECT * FROM website_promosi WHERE status = 2 ORDER BY price ASC LIMIT 0, 4");
+     $group = $this->global_models->get_query("SELECT * FROM website_group_tour WHERE status = 2 ORDER BY price ASC LIMIT 0, 4");
++   // $news = $this->global_models->get_query("SELECT * FROM website_news WHERE status = 1 ORDER BY id_website_news DESC LIMIT 0, 2");
++    $fit = $this->global_models->get_query("SELECT * FROM website_promosi WHERE status = 2 ORDER BY RAND() LIMIT 0, 2");
+     
+ //    $data = $this->curl_mentah(array(), "http://tiket.antavaya.com/widgets.php");
+ //    $dt_temp = explode('tnow"', $data);
+@@ -1077,9 +1079,11 @@
+           'theme2nd'    => 'antavaya',
+           'slide'       => $slide,
+           'promosi'     => $promosi,
++           'fit'         => $fit,
+           'key'         => $key,
+           'foot2'       => $foot,
+-          'group'       => $group
++          'group'       => $group,
++        //    'news'       => $news
+         ));
+       $this->template
+         ->set_layout('default')
+Index: antavaya/views/main.php
+===================================================================
+--- antavaya/views/main.php	(revision 65)
++++ antavaya/views/main.php	(working copy)
+@@ -25,11 +25,6 @@
+ .newcon{
+   max-width: 1400px;
+ }
+-
+-.working{
+-    background:url('<?php print $url?>images/ajax-loader.gif') no-repeat right center white !important;
+-    background-size: 20px !important;
+-}
+ </style>
+ <section style="padding-top: 0; background-color: white;" class="nc">
+     <div class="container newcon">
+@@ -75,7 +70,6 @@
+                     <ul class="search-tabs clearfix">
+                         <!--<li class="active"><a href="#hotels-tab" data-toggle="tab">HOTELS</a></li>-->
+                         <li class="active"><a href="#flights-tab" style="background-color: #bd2330; color: white; font-size: 18px" data-toggle="tab" class="judul">Cari Tiket</a></li>
+-<!--                        <li><a href="#kamar-tab" style="background-color: #bd2330; color: white; font-size: 18px" data-toggle="tab" class="judul">Cari Hotel</a></li>-->
+ <!--                        <li><a href="http://tiket.antavaya.com/index.php/component/bayar/?view=bayar&layout=byr" target="_blank" style="background-color: #bd2330; color: white" class="judul">Konfirmasi Pembayaran</a></li>
+                         <li><a href="#faq-tab" style="background-color: #bd2330; color: white" data-toggle="tab" class="judul">FAQ & Terms Cond</a></li>-->
+                         <!--<li><a href="#flight-and-hotel-tab" data-toggle="tab">FLIGHT &amp; HOTELS</a></li>
+@@ -88,7 +82,6 @@
+                         <ul id="mobile-search-tabs" class="search-tabs clearfix">
+                             <!--<li class="active"><a href="#hotels-tab">HOTELS</a></li>-->
+                             <li><a href="#flights-tab" style="background-color: #bd2330" class="judul">CARI TIKET</a></li>
+-                            <!--<li><a href="#kamar-tab" style="background-color: #bd2330" class="judul">CARI HOTEL</a></li>-->
+ <!--                            <li><a href="http://tiket.antavaya.com/index.php/component/bayar/?view=bayar&layout=byr" target="_blank" style="background-color: #bd2330; font-size: 11px" class="judul">Konfirmasi Pembayaran</a></li>
+                             <li><a href="#faq-tab" style="background-color: #bd2330; color: white" data-toggle="tab" class="judul">FAQ & Terms Cond</a></li>-->
+ <!--                            <li><a href="#flight-and-hotel-tab">FLIGHT &amp; HOTELS</a></li>
+@@ -286,7 +279,7 @@
+ 									
+                                     <div class="col-md-4" style="background-color: white; box-shadow: 0px 0px 15px #888888; padding-bottom: 10px; padding-top: 10px">
+                                         <a id="book-now" class="button" href="javascript:void(0)" style="padding: 0px">
+-                                          <img style="padding: 0px" src="<?php print base_url()."files/antavaya/ads/trans-resort-bali-revisi.png"?>" width="100%"/>
++                                          <img style="padding: 0px" src="<?php print base_url()."files/antavaya/slideshow/trans-resort-bali-revisi.png"?>" width="100%"/>
+                                         </a>
+                                     </div>
+                                     <!--<div class="col-md-4" style="background-color: white; box-shadow: 0px 0px 15px #888888; padding-bottom: 10px; padding-top: 10px">
+@@ -305,148 +298,6 @@
+                             </form>
+                         </div>
+                         
+-<!--                        <div class="tab-pane fade " id="kamar-tab">
+-                            <form name="form_search" method="post" onsubmit="return validasi()" action="<?php print site_url("hotel/hotel-list")?>">
+-                                <div class="row">
+-                                    <div class="col-md-2">
+-                                        <h4 class="title">Where</h4>
+-                                        <div class="form-group col-md-12">
+-                                            <label style="color: white">Negara</label>
+-                                            <input value="" id="autocomplete_nation" name="nation" type="text" class="drdr input-text full-width" placeholder="Negara" />
+-                                            <input value="" id="id_master_hotel_nation" name="id_master_hotel_nation" type="text" style="display: none" />
+-                                        </div>
+-                                        <div class="form-group col-md-12">
+-                                            <label style="color: white">Kota</label>
+-                                            <input value="" id="autocomplete_city" name="city" type="text" class="drdr input-text full-width" placeholder="Kota" />
+-                                        </div>
+-                                        
+-                                    </div>
+-                                    <div class="col-md-2">
+-                                        <div class="form-group col-md-12">
+-                                            <label style="color: white">Check In</label>
+-                                            <div class="row">
+-                                                <div class="col-xs-6" style="width: 100%">
+-                                                    <div class="datepicker-wrap">
+-                                                        <input value="<?php print date("d F Y")?>" type="text" id="checkin" name="CheckIn" class="input-text full-width" placeholder="dd MM YY" />
+-                                                    </div>
+-                                                </div>
+-                                            </div>
+-                                        </div>
+-                                        <div class="form-group col-md-6">
+-                                            <label style="color: white">Single</label>
+-                                            <div class="selector">
+-                                                <select name="Sgl" id="room" class="full-width">
+-                                                    <option value="0">00</option>
+-                                                    <option value="1">01</option>
+-                                                    <option value="2">02</option>
+-                                                    <option value="3">03</option>
+-                                                    <option value="4">04</option>
+-                                                    <option value="5">05</option>
+-                                                    <option value="6">06</option>
+-                                                    <option value="7">07</option>
+-                                                    <option value="8">08</option>
+-                                                    <option value="9">09</option>
+-                                                </select>
+-                                            </div>
+-                                        </div>
+-                                        <div class="form-group col-md-6">
+-                                            <label style="color: white">Double</label>
+-                                            <div class="selector">
+-                                                <select name="Dbl" id="room" class="full-width">
+-                                                    <option value="0">00</option>
+-                                                    <option value="1">01</option>
+-                                                    <option value="2">02</option>
+-                                                    <option value="3">03</option>
+-                                                    <option value="4">04</option>
+-                                                    <option value="5">05</option>
+-                                                    <option value="6">06</option>
+-                                                    <option value="7">07</option>
+-                                                    <option value="8">08</option>
+-                                                    <option value="9">09</option>
+-                                                </select>
+-                                            </div>
+-                                        </div>
+-                                    </div>
+-                                    <div class="col-md-2">
+-                                        <div class="form-group col-md-12">
+-                                            <label style="color: white">Check Out</label>
+-                                            <div class="row">
+-                                                <div class="col-xs-6" style="width: 100%">
+-                                                    <div class="datepicker-wrap">
+-                                                        <input value="<?php print date("d F Y", strtotime("+1 days"))?>" type="text" id="checkout" name="CheckOut" class="input-text full-width" placeholder="dd MM YY" />
+-                                                    </div>
+-                                                </div>
+-                                            </div>
+-                                        </div>
+-                                        <div class="form-group col-md-6">
+-                                            <label style="color: white">Twin</label>
+-                                            <div class="selector">
+-                                                <select name="Twn" id="room" class="full-width">
+-                                                    <option value="0">00</option>
+-                                                    <option value="1">01</option>
+-                                                    <option value="2">02</option>
+-                                                    <option value="3">03</option>
+-                                                    <option value="4">04</option>
+-                                                    <option value="5">05</option>
+-                                                    <option value="6">06</option>
+-                                                    <option value="7">07</option>
+-                                                    <option value="8">08</option>
+-                                                    <option value="9">09</option>
+-                                                </select>
+-                                            </div>
+-                                        </div>
+-                                        <div class="form-group col-md-6">
+-                                            <label style="color: white">Triple</label>
+-                                            <div class="selector">
+-                                                <select name="Trp" id="room" class="full-width">
+-                                                    <option value="0">00</option>
+-                                                    <option value="1">01</option>
+-                                                    <option value="2">02</option>
+-                                                    <option value="3">03</option>
+-                                                    <option value="4">04</option>
+-                                                    <option value="5">05</option>
+-                                                    <option value="6">06</option>
+-                                                    <option value="7">07</option>
+-                                                    <option value="8">08</option>
+-                                                    <option value="9">09</option>
+-                                                </select>
+-                                            </div>
+-                                        </div>
+-                                        
+-                                    </div>
+-                                    <div class="col-md-2">
+-                                        <div class="form-group">
+-                                            <button id="cari" class="full-width icon-check judul" style="height: 57px; font-size: 18px" >
+-                                                CARI HOTEL
+-                                            </button>
+-                                        </div>
+-                                        <div class="form-group col-md-6">
+-                                            <label style="color: white">Quad</label>
+-                                            <div class="selector">
+-                                                <select name="Quad" id="room" class="full-width">
+-                                                    <option value="0">00</option>
+-                                                    <option value="1">01</option>
+-                                                    <option value="2">02</option>
+-                                                    <option value="3">03</option>
+-                                                    <option value="4">04</option>
+-                                                    <option value="5">05</option>
+-                                                    <option value="6">06</option>
+-                                                    <option value="7">07</option>
+-                                                    <option value="8">08</option>
+-                                                    <option value="9">09</option>
+-                                                </select>
+-                                            </div>
+-                                        </div>
+-                                    </div>
+-                                    <div class="col-md-4" style="background-color: white; box-shadow: 0px 0px 15px #888888; padding-bottom: 10px; padding-top: 10px">
+-                                        <a id="book-now-2nd" class="button" href="javascript:void(0)" style="padding: 0px">
+-                                          <img style="padding: 0px" src="<?php print base_url()."files/antavaya/ads/trans-resort-bali-revisi.png"?>" width="100%"/>
+-                                        </a>
+-                                    </div>
+-                                </div>
+-                            </form>
+-                        </div>-->
+-                        
+                         <div class="tab-pane fade in" id="faq-tab">
+                             <label style="color: white"><a href="javascript:void(0)" onclick="faq_popup()">Panduan</a></label>
+                                 <br />
+@@ -928,29 +779,29 @@
+             </div>
+             <div class="offers section" style="background-color: white">
+                 <div class="container">
+-                    <!--<img src="<?php print $url."images/TOUR PROMO logo-07.png"?>" width="20%" />-->
+-                    <!--<div id="fit-pack" class="row image-box style9 places col-md-6" style="background-color: #f5f5f5; margin-right: 10px; box-shadow: 0px 0px 10px #888888;">
++                    <div id="group-pack" class="row image-box style9 places col-md-12" style="background-color: #f5f5f5; margin-left: 10px;box-shadow: 0px 0px 10px #888888;">
+                         <h2 style="margin-top: 10px; color: #bd2330">FIT & <span style="color: #1a6ea5">Packages</span></h2><hr />
+                         <?php
+-                        foreach ($promosi AS $prom){
+-                          if($prom->id_website_promosi){
++                        
++                        foreach ($fit AS $val){
++                          if($val->id_website_promosi){
+                             print "<div class='col-xs-6'>"
+                             . "<article class='box'>"
+                               . "<figure>"
+-                                . "<a href='".site_url("promosi/detail/{$prom->nicename}")."' title='' class='hover-effect yellow animated' data-animation-type='fadeInUp' data-animation-duration='1'>"
+-                                . "<img src='".base_url()."files/antavaya/promosi/{$prom->file_temp}' alt='' /></a>"
++                                . "<a href='".site_url("promosi/detail/{$val->nicename}")."'  title='' class='hover-effect yellow animated' data-animation-type='fadeInUp' data-animation-duration='1'>"
++                                . "<img src='".base_url()."files/antavaya/promosi/{$val->file_temp}' style='max-width: 500px; max-height: 220px;' alt='' /></a>"
+                               . "</figure>"
+                               . "<div class='details' style='min-height: 205px' style='background-color: #F5F5F5'>"
+-                                . "<h4 style='min-height: 115px; color: #bd2330'>{$prom->title}<br /><small style='color: black'>"
+-                                . "{$prom->sub_title} <br /><span style='font-size: 11px; color: #727070'>{$prom->summary}</span></small></h4>"
+-                                . "<a style='font-size: 18px; margin-top: 0' href='".site_url("promosi/detail/{$prom->nicename}")."' title='' class='button'>Detail</a>"
++                                . "<h4 style='min-height: 115px; color: #bd2330'>{$val->title}<br /><small style='color: black'>"
++                                . "{$val->sub_title} <br /><span style='font-size: 11px; color: #727070'>{$val->summary}</span></small></h4>"
++                                . "<a style='font-size: 18px; margin-top: 0' href='".site_url("promosi/detail/{$val->nicename}")."' title='' class='button'>Detail</a>"
+                               . "</div>"
+                             . "</article>"
+                             . "</div>";
+                           }
+                         }
+                         ?>
+-                    </div>-->
++                    </div>
+                     <div id="group-pack" class="row image-box style9 places col-md-12" style="background-color: #f5f5f5; margin-left: 10px;box-shadow: 0px 0px 10px #888888;">
+                         <h2 style="margin-top: 10px; color: #bd2330">GROUP <span style="color: #1a6ea5">Tour</span></h2><hr />
+                         <?php
+Index: grouptour/controllers/grouptour.php
+===================================================================
+--- grouptour/controllers/grouptour.php	(revision 65)
++++ grouptour/controllers/grouptour.php	(working copy)
+@@ -50,8 +50,50 @@
+     die;
+   }
+ 
+-  public function index(){
+-    $foot = "<script>"
++  public function index($session = 0, $tujuan = 0){
++    
++    if($session == 1){
++      $category = 1;
++      $db_category = "category =1 AND ";
++    } elseif ($session == 2) {
++      $category = 2;
++      $db_category = "category =2 AND ";
++    }elseif ($session == 3) {
++      $category = 3;
++      $db_category = "category =3 AND ";
++    }elseif ($session == 4) {
++      $category = 4;
++      $db_category = "category =4 AND ";
++    }else{
++      $category = 1;
++      $db_category = "category =1 AND ";
++    }
++    
++    if($tujuan == 1){
++      $sub_category = 1;
++      $db_sub_category = "sub_category =1 AND ";
++    }elseif($tujuan == 2){
++      $sub_category = 2;
++      $db_sub_category = "sub_category =2 AND ";
++    }elseif($tujuan == 3){
++      $sub_category = 3;
++      $db_sub_category = "sub_category =3 AND ";
++    }elseif($tujuan == 4){
++      $sub_category = 4;
++      $db_sub_category = "sub_category =4 AND ";
++    }elseif($tujuan == 5){
++      $sub_category = 5;
++      $db_sub_category = "sub_category =5 AND ";
++    }elseif($tujuan == 6){
++      $sub_category = 6;
++      $db_sub_category = "sub_category =6 AND ";
++    }else{
++      $sub_category = 1;
++      $db_sub_category = "sub_category =1 AND ";
++    }
++    
++    
++   /* $foot = "<script>"
+         . "$(document).ready(function() {"
+         . " $('#paket_eropa1_1').show();"  
+         . "});"
+@@ -61,10 +103,12 @@
+         . "hight[1] = $('#hight1_cek').val();"
+         . "hight[2] = $('#hight2_cek').val();"
+         . "hight[3] = $('#hight3_cek').val();"
++        . "hight[4] = $('#hight4_cek').val();"
+       
+         . "$('#hight1_cek').val(1);"
+         . "$('#hight2_cek').val(1);"
+         . "$('#hight3_cek').val(1);"
++        . "$('#hight4_cek').val(1);"
+       
+         . "if(hight[num] == 2){"
+           . "$('#hight'+num+'_cek').val(1);"
+@@ -78,13 +122,14 @@
+         . "}"
+         . "cek_lvl2();"
+       . "}"
+-      . "function cek_lvl2(){"
++      . "function cek_lvl2(){" */
+ //          . "$('.tujuan').switchClass('selected-effect', 'hover-effect');"
+-          . "var hight = new Array();"
++      /*    . "var hight = new Array();"
+           . "$('#tujuan1').hide();"
+           . "$('#tujuan2').hide();"
+           . "$('#tujuan3').hide();"
+-          . "for(var t = 1 ; t <= 3 ; t++){"
++          . "$('#tujuan4').hide();"
++          . "for(var t = 1 ; t <= 4 ; t++){"
+             . "if($('#hight'+t+'_cek').val() == '2'){"
+               . "var deal = t;"
+             . "}"
+@@ -134,11 +179,11 @@
+         . "$('#paket_eropa'+season+'_'+tujuan).show();"
+       . "}"
+       
+-      . "</script>";
++      . "</script>"; */
+ //    $group = $this->global_models->get("website_group_tour", array("status" => 1), "nbs", array(), "id_website_group_tour, title, sub_title, price, nicename, category, sub_category");
+     $group = $this->global_models->get_query("SELECT id_website_group_tour, title, sub_title, price, nicename, category, sub_category"
+       . " FROM website_group_tour"
+-      . " WHERE status <> 3"
++      . " WHERE {$db_category} {$db_sub_category}  status <> 3"
+       . " ORDER BY price ASC");
+     foreach($group AS $gr){
+       if($gr->price){
+@@ -153,13 +198,17 @@
+           . "</a>"
+         . "</li>";
+     }
++    $aha = $this->db->last_query();
+ //    $this->debug($list, true);
+     $this->template->build("main", 
+       array(
+         'url'         => base_url()."themes/antavaya/",
+         'theme2nd'    => 'antavaya',
+         'foot2'       => $foot,
+-        'list'        => $list
++        'list'        => $list,
++        'category'    => $category,
++        'sub_category' => $sub_category,
++        'aha'         => $aha
+       ));
+     $this->template
+       ->set_layout('default')
+Index: grouptour/views/main.php
+===================================================================
+--- grouptour/views/main.php	(revision 65)
++++ grouptour/views/main.php	(working copy)
+@@ -25,125 +25,183 @@
+                         <div class="post">
+                             <div class="post-content-wrapper">
+                                 <div class="flexslider photo-gallery style4">
+-                                    <ul class="slides">
+-                                        <?php
++                                  <a href='javascript:void(0)'><img src='<?php print base_url("files/antavaya/html/1412224683.jpg");?>' alt=''></a>  
++                                 <!-- <ul class="slides">
++                                      
++                                      <?php
+                                         print "<li><a href='javascript:void(0)'><img src='".base_url()."files/antavaya/html/1412224683.jpg' alt=''></a></li>";
+                                         ?>
+-                                    </ul>
++                                    </ul> -->
+                                 </div>
+                             </div>
+                         </div>
+                     </div>
+                 </div>
+                 
++              <?php
++             
++              if($category == 1){
++                $category1 = "selected-effect";
++              }else{
++                $category1 = "hover-effect";
++              }
++              
++              if($category == 2){
++                 $category2 = "selected-effect";
++              }else{
++                $category2 = "hover-effect";
++              }
++              
++              if($category == 3){
++                 $category3 = "selected-effect";
++              }else{
++                $category3 = "hover-effect";
++              }
++              
++              if($category == 4){
++                 $category4 = "selected-effect";
++              }else{
++                $category4 = "hover-effect";
++              }
++              ?>
+                 <h2 class="idea-title"><span class="index">1</span>Pilih Season</h2>
+-                <div class="column-3 image-box suggestions">
++                <div class="column-4 image-box suggestions">
+                     <div class="box">
+                         <input id="hight1_cek" type="text" value="2" style="display: none" />
+-                        <a href="javascript:void(0)" id="hight1" class="selected-effect style1 season" onclick="cek_show(1)">
+-                            <img src="<?php print $url."images/low-season.png"?>" alt="">
++                       <!-- <a href="javascript:void(0)" id="hight1" class="selected-effect style1 season" onclick="cek_show(1)"> -->
++                       <a href="<?php echo base_url("grouptour/index/1/{$sub_category}");?>" id="hight1" class="<?php print $category1; ?> style1 season" >     
++                              <img src="<?php print $url."images/low-season.png"?>" alt="">
+                         </a>
+                     </div>
+                     <div class="box">
+                         <input id="hight2_cek" type="text" value="1" style="display: none" />
+-                        <a href="javascript:void(0)" id="hight2" class="hover-effect style1 season" onclick="cek_show(2)">
++                       <!-- <a href="javascript:void(0)" id="hight2" class="<?php print $category1; ?> style1 season" onclick="cek_show(2)"> -->
++                        <a href="<?php print base_url("grouptour/index/2/{$sub_category}");?>" id="hight2" class="<?php print $category2; ?> style1 season">    
+                             <img src="<?php print $url."images/hight-season.png"?>" alt="">
+                         </a>
+                     </div>
+                     <div class="box">
+                         <input id="hight3_cek" type="text" value="1" style="display: none" />
+-                        <a href="javascript:void(0)" id="hight3" class="hover-effect style1 season" onclick="cek_show(3)">
+-                            <img src="<?php print $url."images/hight-season1.png"?>" alt="">
++                       <!-- <a href="javascript:void(0)" id="hight3" class="<?php print $category1; ?> style1 season" onclick="cek_show(3)"> -->
++                        <a href="<?php print base_url("grouptour/index/3/{$sub_category}");?>" id="hight3" class="<?php print $category3; ?> style1 season">    
++                        <img src="<?php print $url."images/hight-season1.png"?>" alt="">
+                         </a>
+                     </div>
++                    <div class="box">
++                        <input id="hight4_cek" type="text" value="1" style="display: none" />
++                        <a href="javascript:void(0)" id="hight4" class="<?php print $category1; ?> style1 season" onclick="cek_show(4)">
++                         <!-- <a href="javascript:void(0)" id="hight4" class="<?php print $category1; ?> style1 season" onclick="cek_show(4)"> -->
++                          <a href="<?php print base_url("grouptour/index/4/{$sub_category}");?>" id="hight4" class="<?php print $category4; ?> style1 season">  
++                          <img src="<?php print $url."images/school-season.png"?>" alt="">
++                        </a>
++                    </div>
+                 </div>
+                 
+                 <h2 class="idea-title"><span class="index">2</span>Pilih Tujuan</h2>
+-                <?php
+-                for($r = 1 ; $r <= 3 ; $r++){
+-                  if($r == 1){
+-                    $display = "block";
+-                  }
+-                  else{
+-                    $display = "none";
+-                  }
+-                ?>
+-                <div class="row image-box style1 add-clearfix" id="tujuan<?php print $r?>" style="display: <?php print $display?>">
++              
++                 <?php
++       
++              if($sub_category == 1){
++                $sub_category1 = "selected-effect";
++              }else{
++                $sub_category1 = "hover-effect";
++              }
++              
++              if($sub_category == 2){
++                 $sub_category2 = "selected-effect";
++              }else{
++                $sub_category2 = "hover-effect";
++              }
++              
++              if($sub_category == 3){
++                 $sub_category3 = "selected-effect";
++              }else{
++                $sub_category3 = "hover-effect";
++              }
++              
++              if($sub_category == 4){
++                 $sub_category4 = "selected-effect";
++              }else{
++                $sub_category4 = "hover-effect";
++              }
++              
++              if($sub_category == 5){
++                 $sub_category5 = "selected-effect";
++              }else{
++                $sub_category5 = "hover-effect";
++              }
++              
++              if($sub_category == 6){
++                 $sub_category6 = "selected-effect";
++              }else{
++                $sub_category6 = "hover-effect";
++              }
++              ?>
++                <div class="row image-box style1 add-clearfix" >
+                     <div class="col-sms-6 col-sm-6 col-md-2">
+                         <article class="box">
+-                            <input id="tujuan<?php print $r?>1_cek" type="text" value="2" style="display: none" />
+-                            <figure class="animated" data-animation-type="fadeInDown" data-animation-duration="1">
+-                                <a href="javascript:void(0)" onclick="cek_tujuan(<?php print $r?>, '1')" title="" class="selected-effect tujuan" id="tujuan<?php print $r?>1"><img src="<?php print base_url()."files/antavaya/html/eropa.png"?>" alt=""/></a>
+-                            </figure>
++                            <a href="<?php print base_url("grouptour/index/{$category}/1");?>" title="" class="<?php print $sub_category1;?> tujuan">    
++                              <img src="<?php print base_url()."files/antavaya/html/eropa.png"?>" alt=""/></a>
+                             <div class="details">
+-                                <h6 class="box-title"><a href="hotel-detailed.html">Eropa</a></h6>
++                                <h6 class="box-title"><a href="<?php print base_url("grouptour/index/{$category}/1");?>">Eropa</a></h6>
+                             </div>
+                         </article>
+                     </div>
+                     <div class="col-sms-6 col-sm-6 col-md-2">
+                         <article class="box">
+-                            <input id="tujuan<?php print $r?>2_cek" type="text" value="1" style="display: none" />
+-                            <figure class="animated" data-animation-type="fadeInDown" data-animation-duration="1">
+-                                <a href="javascript:void(0)" onclick="cek_tujuan(<?php print $r?>, '2')" title="" class="hover-effect tujuan" id="tujuan<?php print $r?>2"><img src="<?php print base_url()."files/antavaya/html/africa.png"?>" alt=""/></a>
+-                            </figure>
++                            <a href="<?php print base_url("grouptour/index/{$category}/2");?>"  title="" class="<?php print $sub_category2;?> tujuan"><img src="<?php print base_url()."files/antavaya/html/africa.png"?>" alt=""/></a>
++                           
+                             <div class="details">
+-                                <h6 class="box-title"><a href="hotel-detailed.html">Middle East & Africa</a></h6>
++                                <h6 class="box-title"><a href="<?php print base_url("grouptour/index/{$category}/2");?>">Middle East & Africa</a></h6>
+                             </div>
+                         </article>
+                     </div>
+                     <div class="col-sms-6 col-sm-6 col-md-2">
+                         <article class="box">
+-                            <input id="tujuan<?php print $r?>3_cek" type="text" value="1" style="display: none" />
+-                            <figure class="animated" data-animation-type="fadeInDown" data-animation-duration="1">
+-                                <a href="javascript:void(0)" onclick="cek_tujuan(<?php print $r?>, '3')" title="" class="hover-effect tujuan" id="tujuan<?php print $r?>3"><img src="<?php print base_url()."files/antavaya/html/america.png"?>" alt=""/></a>
+-                            </figure>
++                            <a href="<?php print base_url("grouptour/index/{$category}/3");?>" title="" class="<?php print $sub_category3;?> tujuan"><img src="<?php print base_url()."files/antavaya/html/america.png"?>" alt=""/></a>
++                            
+                             <div class="details">
+-                                <h6 class="box-title"><a href="hotel-detailed.html">America</a></h6>
++                                <h6 class="box-title"><a href="<?php print base_url("grouptour/index/{$category}/3");?>">America</a></h6>
+                             </div>
+                         </article>
+                     </div>
+                     <div class="col-sms-6 col-sm-6 col-md-2">
+                         <article class="box">
+-                            <input id="tujuan<?php print $r?>4_cek" type="text" value="1" style="display: none" />
+-                            <figure class="animated" data-animation-type="fadeInDown" data-animation-duration="1">
+-                                <a href="javascript:void(0)" title="" onclick="cek_tujuan(<?php print $r?>, '4')" class="hover-effect tujuan" id="tujuan<?php print $r?>4"><img src="<?php print base_url()."files/antavaya/html/australia.png"?>" alt=""/></a>
+-                            </figure>
++                             <a href="<?php print base_url("grouptour/index/{$category}/4");?>" title="" class="<?php print $sub_category4;?> tujuan"><img src="<?php print base_url()."files/antavaya/html/australia.png"?>" alt=""/></a>
++                            
+                             <div class="details">
+-                                <h6 class="box-title"><a href="hotel-detailed.html">Australia & New Zealand</a></h6>
++                                <h6 class="box-title"><a href="<?php print base_url("grouptour/index/{$category}/4");?>">Australia & New Zealand</a></h6>
+                             </div>
+                         </article>
+                     </div>
+                     <div class="col-sms-6 col-sm-6 col-md-2">
+                         <article class="box">
+-                            <input id="tujuan<?php print $r?>5_cek" type="text" value="1" style="display: none" />
+-                            <figure class="animated" data-animation-type="fadeInDown" data-animation-duration="1">
+-                                <a href="javascript:void(0)" title="" onclick="cek_tujuan(<?php print $r?>, '5')" class="hover-effect tujuan" id="tujuan<?php print $r?>5"><img src="<?php print base_url()."files/antavaya/html/asia.png"?>" alt=""/></a>
+-                            </figure>
++                            <a href="<?php print base_url("grouptour/index/{$category}/5");?>" title=""  class="<?php print $sub_category5;?> tujuan"><img src="<?php print base_url()."files/antavaya/html/asia.png"?>" alt=""/></a>
++                            
+                             <div class="details">
+-                                <h6 class="box-title"><a href="hotel-detailed.html">Asia</a></h6>
++                                <h6 class="box-title"><a href="<?php print base_url("grouptour/index/{$category}/5");?>" >Asia</a></h6>
+                             </div>
+                         </article>
+                     </div>
+                     <div class="col-sms-6 col-sm-6 col-md-2">
+                         <article class="box">
+-                            <input id="tujuan<?php print $r?>6_cek" type="text" value="1" style="display: none" />
+-                            <figure class="animated" data-animation-type="fadeInDown" data-animation-duration="1">
+-                                <a href="javascript:void(0)" title="" onclick="cek_tujuan(<?php print $r?>, '6')" class="hover-effect tujuan" id="tujuan<?php print $r?>6"><img src="<?php print base_url()."files/antavaya/html/china.png"?>" alt=""/></a>
+-                            </figure>
++                            <a href="<?php print base_url("grouptour/index/{$category}/6");?>" title="" class="<?php print $sub_category6;?> tujuan"><img src="<?php print base_url()."files/antavaya/html/china.png"?>" alt=""/></a>
++                            
+                             <div class="details">
+-                                <h6 class="box-title"><a href="hotel-detailed.html">China</a></h6>
++                                <h6 class="box-title"><a href="<?php print base_url("grouptour/index/{$category}/6");?>">China</a></h6>
+                             </div>
+                         </article>
+                     </div>
+                 </div>
+-                <?php }?>
+                 
+                 <h2 class="idea-title"><span class="index">3</span>Pilih Paket</h2>
+                 <?php
++                
+                 foreach($list AS $ke => $ls){
+                   foreach($ls AS $yg => $st){
++                    
+                 ?>
+-                <div style="display: none" class="suggested-places paket" id="paket_eropa<?php print $ke?>_<?php print $yg?>">
++                <div  class="suggested-places paket" id="paket_eropa<?php print $ke?>_<?php print $yg?>">
+                     <div class="overflow-hidden">
+                         <div class="row">
+                             <div class="col-sm-12">
+Index: promosi/views/inti.php
+===================================================================
+--- promosi/views/inti.php	(revision 65)
++++ promosi/views/inti.php	(working copy)
+@@ -68,7 +68,7 @@
+                             <option value="4" <?php print $sel[4]?>>Harga Tinggi-Rendah</option>
+                         </select>
+                 </div>
+-                <div class="image-box style9 column-4">
++                <div class="image-box style9 column-3">
+                     <?php
+                     foreach($data AS $dt){
+                     ?>
+Index: promosi/views/main.php
+===================================================================
+--- promosi/views/main.php	(revision 65)
++++ promosi/views/main.php	(working copy)
+@@ -34,7 +34,7 @@
+                   <div class="post-content">
+                       <div class="blog-infinite">
+                           <div class="post">
+-                              <div class="post-content-wrapper">
++<!--                              <div class="post-content-wrapper">
+                                   <div class="flexslider photo-gallery style4">
+                                       <ul class="slides">
+                                           <?php
+@@ -49,17 +49,19 @@
+                                         ?>
+                                       </ul>
+                                   </div>
+-                              </div>
++                              </div>-->
++                              <?php print "<img src='".base_url()."files/antavaya/promosi/{$promosi[0]->file}' alt=''>";?>
+                               <div class="details" id="nbs">
+-                                <h3 style="text-align: center"><?php print $promosi[0]->title?></h3>
+-                                <h4 style="text-align: center"><?php print $promosi[0]->sub_title?></h4>
++                                
++<!--                                <h3 style="text-align: center"><?php print $promosi[0]->title?></h3>
++                                <h4 style="text-align: center"><?php print $promosi[0]->sub_title?></h4>-->
+                                 <?php 
+-                                print str_replace("&nbsp;", " ", $promosi[0]->note);
++//                                print str_replace("&nbsp;", " ", $promosi[0]->note);
+ //                                if($promosi[0]->file_pdf){
+ //                                  print "<iframe width='100%' style='height: 500px' src='".base_url()."files/antavaya/promosi/{$promosi[0]->file_pdf}'></iframe>";
+ //                                }
+                                 ?>
+-                                <div id="dialog-form" title="Inquiry">
++                                <div id="dialog-form" title="Book Now">
+                                   <form>
+                                     <fieldset>
+                                       <label for="name">Nama</label>
+@@ -74,13 +76,15 @@
+                                       <br />
+                                       <label for="note">Note</label>
+                                       <textarea name="note" id="note" style="width: 100%;background-color: white" rows="9"></textarea>
++                                      <div id="loading-inquiry" style="display: none"><img src="<?php print $url?>images/ajax-loader.gif" /></div>
+                                     </fieldset>
+                                   </form>
+                                 </div>
+                                 <p>&nbsp;</p>
+                                 <div class="row">
+                                   <div class="col-md-6" style="text-align: left; font-size: 16px">
+-                                    <a target="_blank" class="button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="<?php print base_url()."files/antavaya/promosi/{$promosi[0]->file_pdf}"?>">Download Itinerary</a></div>
++                                    <!--<a target="_blank" class="button ui-button ui-widget ui-state-default ui-corner-all ui-button-text-only" href="<?php print base_url()."files/antavaya/promosi/{$promosi[0]->file_pdf}"?>">Download Itinerary</a>-->
++                                  </div>
+                                 <div class="col-md-6" style="text-align: right; font-size: 16px"><a id="book-now" class="button" href="javascript:void(0)">Inquiry</a></div>
+                                 </div>
+                               </div>
